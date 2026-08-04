@@ -8,11 +8,16 @@ const uploader = (dir: string = "/") => {
   // Define storage configuration for multer
   const myStorage = multer.diskStorage({
     destination: (req, file, cb) => {
-      const filePath = path.join(__dirname, `../../public/uploads${dir}`);
-      if (!fs.existsSync(filePath)) {
-        fs.mkdirSync(filePath);
+      try {
+        const dirname = process.cwd();
+        const filePath = path.join(dirname, `/public/uploads${dir}`);
+        if (!fs.existsSync(filePath)) {
+          fs.mkdirSync(filePath);
+        }
+        cb(null, filePath);
+      } catch (err) {
+        cb(new Error("Failed to create directory") as any, "");
       }
-      cb(null, filePath);
     },
 
     filename: (req, file, cb) => {
