@@ -1,7 +1,11 @@
 import express, { type Application } from "express";
 import mainRouter from "./router/router";
 import ErrorHandler from "./middlewares/ErrorHandlingMiddleware";
+import path from "path";
+import "./config/mongodbConfig";
 const app: Application = express();
+
+app.use("/assets", express.static(path.join(process.cwd(), `/public/uploads`)));
 
 app.use(
   express.json({

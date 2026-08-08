@@ -2,7 +2,6 @@ import multer from "multer";
 import type { Request } from "express";
 import path from "node:path";
 import fs from "fs";
-import { boolean } from "zod";
 
 const uploader = (dir: string = "/") => {
   // Define storage configuration for multer

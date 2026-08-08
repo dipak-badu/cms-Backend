@@ -30,3 +30,7 @@ view/presentation layer (view, react or frented/ json response)
 
 -\*\*faeature -`Register` -`Activation` -`Login` -`Logout` -`forget password` -`Reset password`
 `Access to dashboard`
+
+## MongoDb local url example
+
+"mongodb://localhost:27017/mydatabase"
