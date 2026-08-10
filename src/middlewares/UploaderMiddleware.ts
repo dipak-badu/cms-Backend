@@ -8,12 +8,12 @@ const uploader = (dir: string = "/") => {
   const myStorage = multer.diskStorage({
     destination: (req, file, cb) => {
       try {
-        const dirname = process.cwd();
-        const filePath = path.join(dirname, `/public/uploads${dir}`);
-        if (!fs.existsSync(filePath)) {
-          fs.mkdirSync(filePath);
+        const uploadDir = path.join(process.cwd(), "public", "uploads", dir);
+        if (!fs.existsSync(uploadDir)) {
+          fs.mkdirSync(uploadDir, { recursive: true });
         }
-        cb(null, filePath);
+        console.log("File will be saved to:", uploadDir);
+        cb(null, uploadDir);
       } catch (err) {
         cb(new Error("Failed to create directory") as any, "");
       }

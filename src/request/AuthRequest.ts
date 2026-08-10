@@ -14,6 +14,7 @@ export const RegisterDTO = z
       .nonempty("email is required")
       .nonoptional(),
     //   password: z.string().min(6, "password must be at least 6 characters").max(20).regex(/^[a-zA-Z0-9!@#$%^&*()-+]/)
+    role: z.enum(["user", "admin"]).optional(),
     password: z
       .string()
       .regex(
@@ -28,3 +29,14 @@ export const RegisterDTO = z
     message: "Passwords do not match",
     path: ["confirmPassword"],
   });
+
+export type RegisterDTOType = z.infer<typeof RegisterDTO> & {
+  image?: {
+    filename?: string;
+    path?: string;
+    size?: number;
+    mimetype?: string;
+    type?: string;
+    url?: string;
+  };
+};

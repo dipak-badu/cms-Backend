@@ -5,6 +5,7 @@ import bodyValidator from "../middlewares/ValidationMiddleware";
 import z from "zod";
 import { LogininDTO } from "../request/AuthRequest";
 import uploader from "../middlewares/UploaderMiddleware";
+import { RegisterDTO } from "../request/AuthRequest";
 
 const authRouter = Router();
 const authController = new AuthController();
@@ -17,7 +18,8 @@ const authController = new AuthController();
 
 authRouter.post(
   "/register",
-  uploader("/avatars").single("avatar"),
+  uploader("/avatars").single("image"),
+  bodyValidator(RegisterDTO),
   authController.userRegister,
 );
 authRouter.post("/login", bodyValidator(LogininDTO), authController.loginUser);
