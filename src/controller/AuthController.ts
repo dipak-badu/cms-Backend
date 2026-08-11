@@ -1,8 +1,9 @@
-import { type Request, type Response } from "express";
+import { type NextFunction, type Request, type Response } from "express";
 import bcrypt from "bcryptjs";
 import { file } from "zod/v4/classic/external.cjs";
 import { appConfig } from "../config/appConfig";
 import AuthService from "../service/AuthService";
+import { ImageMapper } from "../utils/helper";
 
 class AuthController {
   async userRegister(req: Request, res: Response) {
@@ -18,6 +19,7 @@ class AuthController {
           url: `${appConfig.assetUrl}/${req.file.filename}`,
         };
       }
+      // by making the utils
       console.log("Received registration data:", data);
       // db service call to save user data in database
       const user = await AuthService.registerUser(data);
@@ -33,7 +35,37 @@ class AuthController {
       });
     }
   }
-  loginUser(req: Request, res: Response) {}
+
+  loginUser = async (
+    req: Request,
+    res: Response,
+    next: NextFunction,
+  ): Promise<void> => {
+    try {
+      const { username, password } = req.body;
+
+      const user = await AuthService.getSinglerowByFilter({
+        $or: [{ username: username }, { email: username }],
+      });
+      if (!user) {
+        throw { code: 404, message: "User not found" };
+      }
+      // verify password
+      const isPasswordValid = bcrypt.compareSync(password, user.password);
+      if (!isPasswordValid) {
+        throw { code: 401, message: "Invalid password" };
+      }
+      res.json({
+        data: user,
+        message: "User logged in successfully",
+        meta: null,
+      });
+    } catch (exception) {
+      console.log("Controller-login:", exception);
+      next(exception);
+    }
+  };
+
   logoutUser(req: Request, res: Response) {}
   forgotPassword(req: Request, res: Response) {}
   resetPassword(req: Request, res: Response) {}

@@ -34,3 +34,5 @@ view/presentation layer (view, react or frented/ json response)
 ## MongoDb local url example
 
 "mongodb://localhost:27017/mydatabase"
+
+## if this problem is found EADDRINUSE: address already in use :::9005 use pnpm i kill-port then then kill-port port number

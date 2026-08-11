@@ -16,6 +16,15 @@ class AuthService {
       throw error;
     }
   }
-}
 
+  static async getSinglerowByFilter(filter: Record<string, any> | {} = {}) {
+    try {
+      const row = await UserModel.findOne(filter);
+      return row;
+    } catch (exception) {
+      console.log("Service-getSinglerowByFilter:", exception);
+      throw exception;
+    }
+  }
+}
 export default AuthService;
