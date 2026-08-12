@@ -23,7 +23,7 @@ authRouter.post(
   authController.userRegister,
 );
 authRouter.post("/login", bodyValidator(LogininDTO), authController.loginUser);
-authRouter.post("/logout", checkLogin, authController.logoutUser);
+authRouter.post("/logout", checkLogin(), authController.logoutUser);
 authRouter.post("/forgot-password", authController.forgotPassword);
 authRouter.post("/reset-password", authController.resetPassword);
 authRouter.post(
@@ -31,5 +31,7 @@ authRouter.post(
   checkLogin(),
   authController.changePassword,
 );
+
+authRouter.get("/me", checkLogin(), authController.getLoggedInUser);
 
 export default authRouter;

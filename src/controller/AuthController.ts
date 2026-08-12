@@ -4,6 +4,7 @@ import { file } from "zod/v4/classic/external.cjs";
 import { appConfig } from "../config/appConfig";
 import AuthService from "../service/AuthService";
 import { ImageMapper } from "../utils/helper";
+import jwt from "jsonwebtoken";
 
 class AuthController {
   async userRegister(req: Request, res: Response) {
@@ -55,9 +56,16 @@ class AuthController {
       if (!isPasswordValid) {
         throw { code: 401, message: "Invalid password" };
       }
+
+      // You can also generate a JWT token here and send it in the response if needed
+      const accessToken = jwt.sign(
+        { sub: user._id },
+        appConfig.jwtSecret as string,
+        { expiresIn: "1h" },
+      );
       res.json({
-        data: user,
-        message: "User logged in successfully",
+        data: { accessToken },
+        message: "Login successful",
         meta: null,
       });
     } catch (exception) {
@@ -70,6 +78,6 @@ class AuthController {
   forgotPassword(req: Request, res: Response) {}
   resetPassword(req: Request, res: Response) {}
   changePassword(req: Request, res: Response) {}
+  getLoggedInUser(req: Request, res: Response) {}
 }
-
 export default AuthController;

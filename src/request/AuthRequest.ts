@@ -1,4 +1,5 @@
 import z from "zod";
+import { ImageType } from "../types/Request";
 
 export const LogininDTO = z.object({
   username: z.string().nonempty("username is required").nonoptional(),
@@ -31,12 +32,5 @@ export const RegisterDTO = z
   });
 
 export type RegisterDTOType = z.infer<typeof RegisterDTO> & {
-  image?: {
-    filename?: string;
-    path?: string;
-    size?: number;
-    mimetype?: string;
-    type?: string;
-    url?: string;
-  };
+  image?: ImageType;
 };
