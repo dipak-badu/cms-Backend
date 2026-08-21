@@ -5,11 +5,13 @@ const bodyValidator = (schema: z.ZodType) => {
   return async (req: Request, res: Response, next: NextFunction) => {
     try {
       const data = req.body;
+      console;
       if (!data) {
         next({ code: 400, message: "body is not set" });
       }
       const parsedData = await schema.parseAsync(data);
-      next();
+      req.body = parsedData;
+      return next();
     } catch (exception) {
       let details: Record<string, string> = {};
       if (exception instanceof ZodError) {

@@ -11,4 +11,5 @@ mainRouter.get("/", (req, res) => {
 });
 
 mainRouter.use("/auth", authRouter);
+mainRouter.use("/users", authRouter);
 export default mainRouter;

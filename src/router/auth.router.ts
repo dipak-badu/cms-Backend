@@ -22,7 +22,17 @@ authRouter.post(
   bodyValidator(RegisterDTO),
   authController.userRegister,
 );
-authRouter.post("/login", bodyValidator(LogininDTO), authController.loginUser);
+
+authRouter.post(
+  "/login",
+  (req, res, next) => {
+    console.log("Request body:", req.body);
+    next();
+  },
+  uploader().none(),
+  bodyValidator(LogininDTO),
+  authController.loginUser,
+);
 authRouter.post("/logout", checkLogin(), authController.logoutUser);
 authRouter.post("/forgot-password", authController.forgotPassword);
 authRouter.post("/reset-password", authController.resetPassword);

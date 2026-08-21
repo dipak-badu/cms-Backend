@@ -5,6 +5,7 @@ import { appConfig } from "../config/appConfig";
 import AuthService from "../service/AuthService";
 import { ImageMapper } from "../utils/helper";
 import jwt from "jsonwebtoken";
+import { IAuthRequest } from "../types/Request";
 
 class AuthController {
   async userRegister(req: Request, res: Response) {
@@ -78,6 +79,13 @@ class AuthController {
   forgotPassword(req: Request, res: Response) {}
   resetPassword(req: Request, res: Response) {}
   changePassword(req: Request, res: Response) {}
-  getLoggedInUser(req: Request, res: Response) {}
+  getLoggedInUser = (req: IAuthRequest, res: Response, next: NextFunction) => {
+    const loggedInUser = req.loggedInUser;
+    res.json({
+      data: loggedInUser,
+      message: "Logged in user details",
+      meta: null,
+    });
+  };
 }
 export default AuthController;
