@@ -31,17 +31,17 @@ class UserController {
           (req.query.limit ? parseInt(req.query.limit as string) : 20),
       };
 
-      const { rows, pagination } = await UserService.getAllUsers(
+      const { users, pagination } = await UserService.getAllUsers(
         filter,
         paginationConfig,
       );
 
       res.json({
-        data: rows,
+        data: users,
         message: "success",
         meta: {
           pagination: {
-            total: rows.pagination.total,
+            total: pagination.total,
             page: paginationConfig.page,
             limit: paginationConfig.limit,
           },

@@ -6,6 +6,7 @@ import "./config/mongodbConfig";
 import cors from "cors";
 import helmet from "helmet";
 import rateLimit from "express-rate-limit";
+import "./config/event-congig";
 const app: Application = express();
 
 // CORS configuration

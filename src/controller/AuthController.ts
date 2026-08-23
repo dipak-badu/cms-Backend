@@ -6,6 +6,7 @@ import AuthService from "../service/AuthService";
 import { ImageMapper } from "../utils/helper";
 import jwt from "jsonwebtoken";
 import { IAuthRequest } from "../types/Request";
+import { myEvent } from "../config/event-congig";
 
 class AuthController {
   async userRegister(req: Request, res: Response) {
@@ -25,6 +26,7 @@ class AuthController {
       console.log("Received registration data:", data);
       // db service call to save user data in database
       const user = await AuthService.registerUser(data);
+      myEvent.emit("NEW_USER_REGISTERED", user);
       res.json({
         data: user,
         message: "user registered successfully",

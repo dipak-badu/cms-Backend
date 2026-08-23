@@ -36,3 +36,17 @@ view/presentation layer (view, react or frented/ json response)
 "mongodb://localhost:27017/mydatabase"
 
 ## if this problem is found EADDRINUSE: address already in use :::9005 use pnpm i kill-port then then kill-port port number
+
+## requirement for the chat app
+
+-chat interface
+-communication for user
+-user list
+
+## Server
+
+-VPC (Cloud hosting)
+
+-1500/month
+-Shared Hosting
+-2000/month
