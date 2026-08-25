@@ -7,6 +7,7 @@ import cors from "cors";
 import helmet from "helmet";
 import rateLimit from "express-rate-limit";
 import "./config/event-congig";
+import "./config/sqlConfig";
 const app: Application = express();
 
 // CORS configuration

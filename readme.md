@@ -50,3 +50,19 @@ view/presentation layer (view, react or frented/ json response)
 -1500/month
 -Shared Hosting
 -2000/month
+
+## how to work with SQL
+
+### SQL ( mysql, mariadb, postgresql, oracle , mssql, aqlite )
+
+- DB server -> Db
+- Tabel develop
+- model
+  - SQL ORM -> ` sequelize, typeorm , prisma`
+    ` supabase,  neon`
+
+## command to run migration table are
+
+-npx sequelize-cli migration:generate --name create_messages_table
+
+- npx sequelize-cli db:migrate

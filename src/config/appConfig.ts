@@ -11,7 +11,13 @@ export const mongoConfig = {
   name: process.env.NAME,
 };
 
-export const smptConfig = {
+export const sqlConfig = {
+  url: process.env.SQL_URL,
+  name: process.env.SQL_NAME,
+  dialect: process.env.SQL_DIALECT,
+};
+
+export const smtpConfig = {
   provider: process.env.SMTP_PROVIDER,
   host: process.env.SMTP_HOST,
   port: process.env.SMTP_PORT,
